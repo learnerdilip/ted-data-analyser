@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "fastapi-mongo-server"
+version = "0.1.0"
+description = "Backend server for TED analyser"
+authors = ["Dilip singh <diliptalks@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.109.0"
+uvicorn = { extras = ["standard"], version = "^0.27.0" }
+motor = "^3.3.2"                                         # Async MongoDB driver
+pydantic-settings = "^2.1.0"                             # For robust config management
+python-multipart = "^0.0.9"                              # For form data (optional but common)
+httpx = "^0.26.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

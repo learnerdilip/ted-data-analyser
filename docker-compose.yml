@@ -1,0 +1,31 @@
+services:
+  # Service 1: The Database
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_container
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db # Persist data even if container stops
+
+  # Service 2: The FastAPI Backend
+  backend:
+    build: ./server
+    container_name: backend_container
+    restart: always
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    env_file:
+      - .env
+    # We mount the volume so code changes reflect immediately (Hot Reloading)
+    volumes:
+      - ./server:/app
+
+volumes:
+  mongo_data:
