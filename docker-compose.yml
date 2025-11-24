@@ -27,5 +27,23 @@ services:
     volumes:
       - ./server:/app
 
+  frontend:
+    build: ./client
+    container_name: frontend_container
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      # This points to the Backend from the browser's perspective
+      - VITE_API_URL=http://localhost:8000/api/v1
+    volumes:
+      - ./client:/app
+      # ONE OF THE MOST IMPORTANT LINES IN DOCKER:
+      # This prevents your local empty node_modules from overriding the
+      # container's installed node_modules.
+      - /app/node_modules
+    depends_on:
+      - backend
+
 volumes:
   mongo_data:
