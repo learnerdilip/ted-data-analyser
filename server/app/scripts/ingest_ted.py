@@ -131,6 +131,28 @@ async def process_item(
     print(f"--- Finished {item_name}: Saved {total_saved} records total ---")
 
 
+async def run_ted_ingestion():
+    """
+    This function can be called by the FastAPI Endpoint.
+    It manages its own lifecycle.
+    """
+    print("--- 🚀 Starting Background Ingestion ---")
+
+    # 1. Connect to DB (We create a dedicated connection for this task)
+    db_client = AsyncIOMotorClient(settings.MONGO_URL)
+
+    try:
+        async with httpx.AsyncClient(timeout=30.0) as http_client:
+            for item in TARGET_ITEMS:
+                await process_item(http_client, db_client, item)
+    except Exception as e:
+        print(f"❌ Error during ingestion: {e}")
+    finally:
+        # Always close connection when done
+        db_client.close()
+        print("--- ✅ Background Ingestion Complete ---")
+
+
 async def main():
     # 1. Database Connection
     db_client = AsyncIOMotorClient(settings.MONGO_URL)
