@@ -1,29 +1,24 @@
-import NoticesTable from "./components/NoticesTable";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import NoticesPage from "./pages/NoticesPage";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-10">
-      <div className="max-w-6xl mx-auto space-y-6">
-        <div className="flex justify-between items-end">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Market Intelligence
-            </h1>
-            <p className="text-gray-500 mt-1">
-              Tracking medicine tenders across Europe
-            </p>
-          </div>
+    <BrowserRouter>
+      {/* Navbar is outside Routes so it stays visible on all pages */}
+      <Navbar />
 
-          {/* We will wire this button up later if needed */}
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 shadow-sm transition">
-            Sync Data
-          </button>
-        </div>
+      <div style={{ padding: "2rem" }}>
+        <Routes>
+          {/* Route for Home */}
+          <Route path="/" element={<Home />} />
 
-        {/* The Table Component */}
-        <NoticesTable />
+          {/* Route for Notices */}
+          <Route path="/notices" element={<NoticesPage />} />
+        </Routes>
       </div>
-    </div>
+    </BrowserRouter>
   );
 }
 

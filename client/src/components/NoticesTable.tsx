@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-// Define the shape of the data from our API
 interface Notice {
   _id: string;
   "publication-number": string;
-  "winner-name"?: string;
+  "BT-27-Procedure"?: string;
   "tender-value"?: number;
+  "organisation-name-buyer"?: string;
   "tender-value-cur"?: string;
   "buyer-country-sub"?: string;
   "publication-date"?: string;
@@ -108,9 +108,10 @@ const NoticesTable = () => {
                 <th className="px-6 py-3">Publication #</th>
                 <th className="px-6 py-3">Product (Query)</th>
                 <th className="px-6 py-3">Country</th>
-                <th className="px-6 py-3">Winner</th>
-                <th className="px-6 py-3 text-right">Value</th>
+                <th className="px-6 py-3">Buyer</th>
+                <th className="px-6 py-3 text-right">Tender Value</th>
                 <th className="px-6 py-3">Date</th>
+                <th className="px-6 py-3">Winner decision date</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
@@ -139,22 +140,29 @@ const NoticesTable = () => {
                       </td>
 
                       <td className="px-6 py-4">
-                        {safeRender(notice["buyer-country-sub"])}
+                        {safeRender(notice["organisation-country-buyer"])}
                       </td>
 
                       <td className="px-6 py-4 truncate max-w-xs">
-                        {safeRender(notice["winner-name"])}
+                        {safeRender(notice["organisation-name-buyer"])}
                       </td>
 
                       <td className="px-6 py-4 text-right font-mono text-gray-900">
                         {formatCurrency(
-                          notice["tender-value"],
+                          notice["BT-27-Procedure"],
                           notice["tender-value-cur"]
                         )}
                       </td>
 
                       <td className="px-6 py-4 whitespace-nowrap">
                         {String(notice["publication-date"] || "").substring(
+                          0,
+                          10
+                        )}
+                      </td>
+
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        {String(notice["winner-decision-date"] || "").substring(
                           0,
                           10
                         )}
