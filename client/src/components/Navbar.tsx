@@ -13,6 +13,12 @@ export default function Navbar() {
         Home
       </Link>
       <Link to="/notices">TED Notices</Link>
+      <Link
+        to="/stats"
+        className="hover:text-blue-600 transition text-purple-600"
+      >
+        Analysis
+      </Link>{" "}
     </nav>
   );
 }

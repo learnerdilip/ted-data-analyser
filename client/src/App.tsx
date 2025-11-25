@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import NoticesTable from "./components/NoticesTable"; // Or your NoticesPage
+import NoticesTable from "./components/NoticesTable";
+import StatsPage from "./pages/StatsPage";
 
 // Simple Navbar
 function Navbar() {
@@ -16,6 +17,12 @@ function Navbar() {
           </Link>
           <Link to="/saved" className="hover:text-blue-600 transition">
             Saved Database
+          </Link>
+          <Link
+            to="/stats"
+            className="hover:text-blue-600 transition text-purple-600"
+          >
+            Analysis
           </Link>
         </div>
       </div>
@@ -40,6 +47,7 @@ function App() {
               </div>
             }
           />
+          <Route path="/stats" element={<StatsPage />} />
         </Routes>
       </div>
     </BrowserRouter>
