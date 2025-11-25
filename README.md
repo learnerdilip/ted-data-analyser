@@ -8,20 +8,13 @@ Prerequisites
 
 Create a .env file in the root directory (same level as docker-compose.yml):
 
-# Database Credentials
-MONGO_INITDB_ROOT_USERNAME=admin
-MONGO_INITDB_ROOT_PASSWORD=secretpassword
-MONGO_DB_NAME=production_db
-
-# Connection String for Backend
-MONGO_HOST=mongodb
-MONGO_PORT=27017
+create a copy of `.env.example` and name it .env (can change to desired values but since we work locally its not )
 
 2. Start the Application
 
 Run the following command in the root directory:
 
-docker-compose up --build
+`docker-compose up --build`
 
 
 3. Wait for the logs to stabilize.
@@ -34,9 +27,9 @@ Backend Docs: Open http://localhost:8000/docs
 
 The application supports "Live Search" out of the box. However, to use the Database Table View and Trend Analysis Graphs, you must seed the local MongoDB with historical data.
 While the Docker containers are running, open a new terminal and run:
-```bash
-docker-compose exec backend python -m app.scripts.ingest_ted
-```
+
+`docker-compose exec backend python -m app.scripts.ingest_ted`
+
 
 
 ## ABOUT
