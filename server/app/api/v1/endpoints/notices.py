@@ -16,6 +16,11 @@ async def read_notices(
     start_date: Optional[str] = Query(None),
     end_date: Optional[str] = Query(None),
     search_text: Optional[str] = Query(None),
+    with_winner_only: bool = Query(
+        False,
+        alias="withWinnerOnly",
+        description="Filter records that have a winner decision date",
+    ),
 ):
     collection = db.client[settings.MONGO_DB_NAME]["ted_notices"]
 
@@ -26,6 +31,9 @@ async def read_notices(
             {"buyer-country-sub": {"$in": countries}},
             {"organisation-country-buyer": {"$in": countries}},
         ]
+
+    if with_winner_only:
+        query_filter["winner-decision-date"] = {"$exists": True, "$ne": None}
 
     skip_amount = (page - 1) * size
     cursor = collection.find(query_filter).skip(skip_amount).limit(size)
