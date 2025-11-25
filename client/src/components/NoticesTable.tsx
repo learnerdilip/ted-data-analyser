@@ -1,26 +1,6 @@
 import { useEffect, useState } from "react";
 
-interface Notice {
-  _id: string;
-  "publication-number": string;
-  "BT-27-Procedure"?: string;
-  "tender-value"?: number;
-  "organisation-name-buyer"?: string;
-  "tender-value-cur"?: string;
-  "buyer-country-sub"?: string;
-  "publication-date"?: string;
-  "winner-decision-date"?: string;
-  _search_term?: string;
-  "organisation-country-buyer"?: string; // Added to interface for safeRender
-}
-
-interface ApiResponse {
-  data: Notice[];
-  total: number;
-  page: number;
-  size: number;
-  total_pages: number;
-}
+import type { Notice, ApiResponse } from "../types";
 
 // Hardcoded lists based on your project requirements
 const PRODUCTS = ["Abiraterone", "Eplerenone", "Pomalidomide"];
