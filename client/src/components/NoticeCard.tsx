@@ -26,6 +26,15 @@ export default function NoticeCard({ notice }: NoticeCardProps) {
     }).format(amount);
   };
 
+  const getTedLink = (notice: Notice): string | undefined => {
+    if (!notice.links?.html) return undefined;
+    return (
+      notice.links.html["ENG"] ||
+      notice.links.html["DEU"] ||
+      Object.values(notice.links.html)[0]
+    );
+  };
+
   // Helper to extract text from TED's complex multi-language objects
   const getTedText = (field, lang = "eng") => {
     if (!field) return "N/A";
@@ -113,6 +122,16 @@ export default function NoticeCard({ notice }: NoticeCardProps) {
             </div>
           )}
         </div>
+        {getTedLink(notice) && (
+          <a
+            href={getTedLink(notice)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 w-full block text-center bg-gray-50 hover:bg-blue-50 text-blue-600 text-xs font-semibold py-2 rounded border border-gray-200 hover:border-blue-200 transition-colors"
+          >
+            View Official Notice ↗
+          </a>
+        )}
       </div>
 
       {/* Footer / ID */}
